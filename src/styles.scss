@@ -1,0 +1,118 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700");
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+  background: #ebebeb;
+  margin: 0;
+  font-family: "Poppins", "Helvetica", "sans-serif" !important;
+}
+// body {
+
+// }
+
+._containerWidth {
+  background: #fff;
+  width: 400px;
+  margin: auto auto;
+  padding: 25px;
+  border-radius: 1rem;
+  top: 120px;
+  position: relative;
+}
+
+._cursorPointer {
+  cursor: pointer;
+}
+
+// text color
+._primaryTextColor {
+  color: #ffc333;
+}
+
+._textMuted {
+  color: #b5b5c3 !important;
+  font-size: 12px;
+}
+
+._alertTextColor {
+  color: red;
+  font-size: 12px;
+}
+
+// input label style
+._inputLabel {
+  font-size: 13px;
+  /* font-weight: 400; */
+  color: #3f4254;
+  margin-bottom: 3px;
+}
+
+// input box style
+._inputBox {
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 1.3rem + 2px);
+  padding: 0.65rem 1rem;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #3f4254;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #e4e6ef;
+  border-radius: 1.5rem;
+  box-shadow: none;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  outline: none;
+}
+
+._inputBox:focus {
+  color: #3f4254;
+  background-color: #fff;
+  border-color: #ffc333;
+  outline: 0;
+}
+
+// text alignment style
+._textEnd {
+  text-align: end;
+}
+
+._textCen {
+  text-align: center;
+}
+
+._textStart {
+  text-align: start;
+}
+
+// button style
+.button {
+  color: #fff;
+  background-color: #ffb400;
+  border-color: #ffb400;
+  border-radius: 1rem !important;
+}
+
+// margin style
+._mt {
+  margin-top: 13px !important;
+}
+
+._m0 {
+  margin: 0px !important;
+}
+
+// font weigt style
+._fw700 {
+  font-weight: 700 !important;
+}
+
+// width 100
+._width100 {
+  width: 100%;
+}

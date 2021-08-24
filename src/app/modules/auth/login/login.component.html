@@ -1,0 +1,78 @@
+<div>
+  <div class="_containerWidth">
+    <h1 class="_m0 _fw700">ConvoBot360</h1>
+    <h3 class="_m0 _loginWithColor">Login with</h3>
+    <mat-tab-group mat-align-tabs="start">
+      <mat-tab label="Email">
+        <input class="_inputBox _mt" placeholder="Email" type="text" />
+        <input class="_inputBox _mt" placeholder="Mobile Number" type="tel" />
+        <div class="_textEnd _mt _cursorPointer" routerLink="/forgot-password">
+          Forgot Password?
+        </div>
+
+        <div class="_textCen _mt">
+          <button mat-button class="button _width100">Sign in</button>
+        </div>
+        <!-- <div class="_textStart _mt">
+          Don't have an account yet?<span
+            routerLink="/registration"
+            class="_cursorPointer _primaryTextColor"
+            >&nbsp;Sign up</span
+          >
+        </div> -->
+      </mat-tab>
+
+      <mat-tab label="Mobile">
+        <div *ngIf="!sendOTPStatus; else verifyTemplate">
+          <input class="_inputBox _mt" placeholder="Mobile Number" type="tel" />
+          <div
+            class="_textEnd _mt _cursorPointer"
+            routerLink="/forgot-password"
+          >
+            Forgot Password?
+          </div>
+          <div class="_mt _textCen">
+            <button
+              mat-button
+              class="button _width100"
+              (click)="sendOTPStatus = true"
+            >
+              Send OTP
+            </button>
+          </div>
+        </div>
+
+        <ng-template #verifyTemplate>
+          <h3 class="_mt _forgotTextColor">Verify OTP</h3>
+
+          <!-- <label class="_mt _inputLabel">OTP</label> -->
+          <input class="_inputBox _mt" placeholder="OTP" />
+          <!-- <span class="_textMuted">Requires your primary email ID.</span> -->
+          <div class="_mt _textCen">
+            <button
+              mat-button
+              class="button _width100"
+              (click)="sendOTPStatus = false"
+            >
+              Verify OTP
+            </button>
+          </div>
+        </ng-template>
+        <!-- <div class="_textStart _mt">
+          Don't have an account yet?<span
+            routerLink="/registration"
+            class="_cursorPointer _primaryTextColor"
+            >&nbsp;Sign up</span
+          >
+        </div> -->
+      </mat-tab>
+    </mat-tab-group>
+    <div class="_textStart _mt">
+      Don't have an account yet?<span
+        routerLink="/registration"
+        class="_cursorPointer _primaryTextColor"
+        >&nbsp;Sign up</span
+      >
+    </div>
+  </div>
+</div>

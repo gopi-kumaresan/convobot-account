@@ -1,0 +1,21 @@
+._rightSideContainer {
+  width: 500px;
+  margin: 30px auto;
+}
+
+._imgDiv {
+  padding: 0px;
+}
+
+@media (max-width: 500px) {
+  ._rightSideContainer {
+    width: auto;
+    margin: 30px auto;
+  }
+}
+
+@media (max-width: 768px) {
+  ._imgDiv {
+    display: none;
+  }
+}
