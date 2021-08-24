@@ -1,0 +1,173 @@
+<div class="row _width100" style="height: 100%; margin: 0px">
+  <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12 _imgDiv">
+    <img src="/assets/Register-Img.png" style="width: 100%" />
+  </div>
+  <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-xs-12">
+    <div class="_rightSideContainer">
+      <div>
+        <h1 class="_m0 _fw700">ConvoBot360</h1>
+
+        <div *ngIf="!signBasicDetailsStatus; else verifyOTP">
+          <form [formGroup]="signInForm">
+            <h3 class="_m0 _forgotTextColor">Sign up</h3>
+            <div>
+              <label class="_mt _inputLabel">Company name</label>
+              <input
+                class="_inputBox"
+                placeholder="Company name"
+                formControlName="companyName"
+                type="text"
+              />
+
+              <div
+                *ngIf="submitted && f.companyName?.errors"
+                class="_alertTextColor"
+              >
+                <div *ngIf="f.companyName.errors?.required">
+                  Company name is required
+                </div>
+              </div>
+
+              <!-- <span class="_alertTextColor">Please enter company name.</span> -->
+            </div>
+
+            <div>
+              <label class="_mt _inputLabel">Email</label>
+              <input
+                class="_inputBox"
+                placeholder="Email"
+                formControlName="email"
+                type="text"
+              />
+
+              <div *ngIf="submitted && f.email.errors" class="_alertTextColor">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.email">
+                  Email must be a valid email address
+                </div>
+              </div>
+
+              <!-- <span class="_alertTextColor">Please enter primary email ID.</span> -->
+            </div>
+
+            <div>
+              <label class="_mt _inputLabel">Mobile Number</label>
+              <input
+                class="_inputBox"
+                placeholder="Mobile Number"
+                formControlName="mobileNumber"
+                type="tel"
+              />
+              <div
+                *ngIf="submitted && f.mobileNumber.errors"
+                class="_alertTextColor"
+              >
+                <div *ngIf="f.mobileNumber.errors.required">
+                  Mobile Number is required
+                </div>
+                <div *ngIf="f.mobileNumber.errors.pattern?.requiredPattern">
+                  Please enter valid mobile number
+                </div>
+              </div>
+
+              <!-- <span class="_alertTextColor">Please enter mobile number.</span> -->
+            </div>
+
+            <div>
+              <label class="_mt _inputLabel">Solution</label>
+              <!-- <input class="_inputBox" placeholder="Solution" /> -->
+              <mat-select
+                formControlName="solution"
+                class="_inputBox"
+                placeholder="Solution"
+              >
+                <mat-option
+                  *ngFor="let sol of solutionListData"
+                  [value]="sol.solution_id"
+                  >{{ sol?.solution_name }}</mat-option
+                >
+                <!-- <mat-option>Food Delivery</mat-option> -->
+              </mat-select>
+              <div
+                *ngIf="submitted && f.solution.errors"
+                class="_alertTextColor"
+              >
+                <div *ngIf="f.solution.errors.required">
+                  Solution is required
+                </div>
+              </div>
+
+              <!-- <span class="_alertTextColor">Please select Solution.</span> -->
+            </div>
+
+            <div>
+              <label class="_mt _inputLabel">Password</label>
+              <input
+                class="_inputBox"
+                placeholder="Password"
+                formControlName="password"
+                type="password"
+              />
+              <div
+                *ngIf="submitted && f.password.errors"
+                class="_alertTextColor"
+              >
+                <div *ngIf="f.password.errors.required">
+                  Password is required
+                </div>
+                <div *ngIf="f.password.errors.minlength">
+                  Password must be at least 6 characters
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="_mt _inputLabel">Confirm Password</label>
+              <input
+                class="_inputBox"
+                placeholder="Confirm Password"
+                formControlName="confirmPassword"
+                type="password"
+              />
+              <div
+                *ngIf="submitted && f.confirmPassword.errors"
+                class="_alertTextColor"
+              >
+                <div *ngIf="f.confirmPassword.errors.required">
+                  Confirm Password is required
+                </div>
+                <div *ngIf="f.confirmPassword.errors.mustMatch">
+                  Passwords must match
+                </div>
+              </div>
+            </div>
+
+            <div class="_mt _textCen">
+              <button
+                mat-button
+                class="button _width100"
+                (click)="signInSumbit()"
+              >
+                Sign in
+              </button>
+            </div>
+
+            <div class="_textStart _mt">
+              Already have login and password?<span
+                routerLink="/login"
+                class="_cursorPointer _primaryTextColor"
+                >&nbsp;Sign in</span
+              >
+            </div>
+          </form>
+        </div>
+
+        <ng-template #verifyOTP>
+          <app-email-mobile-verification
+            [item]="solutionListData"
+          ></app-email-mobile-verification>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
