@@ -75,8 +75,8 @@
 
             <div>
               <label class="_mt _inputLabel">Solution</label>
-              <!-- <input class="_inputBox" placeholder="Solution" /> -->
-              <mat-select
+
+              <!-- <mat-select
                 formControlName="solution"
                 class="_inputBox"
                 placeholder="Solution"
@@ -86,8 +86,18 @@
                   [value]="sol.solution_id"
                   >{{ sol?.solution_name }}</mat-option
                 >
-                <!-- <mat-option>Food Delivery</mat-option> -->
-              </mat-select>
+
+              </mat-select> -->
+              <div>
+                <p-multiSelect
+                  [style]="{ width: '100%' }"
+                  [options]="solutionListData"
+                  formControlName="solution"
+                  optionLabel="solution_name"
+                  defaultLabel="Solution"
+                ></p-multiSelect>
+              </div>
+
               <div
                 *ngIf="submitted && f.solution.errors"
                 class="_alertTextColor"
@@ -116,7 +126,8 @@
                   Password is required
                 </div>
                 <div *ngIf="f.password.errors.minlength">
-                  Password must be at least 6 characters
+                  Password must be at least 8 characters and maximum 20
+                  characters
                 </div>
               </div>
             </div>
@@ -153,7 +164,7 @@
             </div>
 
             <div class="_textStart _mt">
-              Already have login and password?<span
+              Already have account?<span
                 routerLink="/login"
                 class="_cursorPointer _primaryTextColor"
                 >&nbsp;Sign in</span
@@ -164,7 +175,7 @@
 
         <ng-template #verifyOTP>
           <app-email-mobile-verification
-            [item]="solutionListData"
+            [tenancyMetaDetails]="tenancyMetaDetails"
           ></app-email-mobile-verification>
         </ng-template>
       </div>

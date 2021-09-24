@@ -4,8 +4,14 @@
   <input
     class="_inputBox"
     placeholder="Mobile OTP"
-    type="tel"
+    type="password"
     maxlength="4"
+    [(ngModel)]="mobileOTP"
+    (input)="otpVerifyFun($event, '2')"
+    [disabled]="tenancyMetaDetails?.otp_status?.mobile_no_verified == 1"
+    [ngClass]="{
+      'text-success': tenancyMetaDetails.otp_status.mobile_no_verified == 1
+    }"
   />
 </div>
 
@@ -14,13 +20,27 @@
   <input
     class="_inputBox"
     placeholder="Email OTP"
-    type="tel"
+    type="password"
     maxlength="4"
+    [(ngModel)]="emailOTP"
+    (input)="otpVerifyFun($event, '1')"
+    [disabled]="tenancyMetaDetails?.otp_status?.email_verified == 1"
+    [ngClass]="{
+      'text-success': tenancyMetaDetails.otp_status.email_verified == 1
+    }"
   />
 </div>
 
-<div class="_mt _textCen">
-  <button mat-button class="button _width100">
+<!-- <div class="_mt _textCen">
+  <button
+    mat-button
+    class="button _width100"
+
+    [disabled]="
+      tenancyMetaDetails?.otp_status?.email_verified == 0 ||
+      tenancyMetaDetails?.otp_status?.mobile_no_verified == 0
+    "
+  >
     Verify OTP ( Email and Mobilenumber )
   </button>
-</div>
+</div> -->

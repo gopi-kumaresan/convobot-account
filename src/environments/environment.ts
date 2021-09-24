@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  cookies_domain: 'localhost',
+  front_end_url: 'http://testcbpartner.jignov.com',
+  laraval_base_url: 'https://testcbaccountsbl.jignov.com/index.php/api/v1/',
 };
 
 /*

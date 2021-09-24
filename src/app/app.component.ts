@@ -9,12 +9,12 @@ import { MessageService } from 'primeng-lts/api';
 export class AppComponent {
   constructor(private messageService: MessageService) {}
 
-  addSingle() {
+  toastMessage(header: string, toastType: string, message: string) {
     this.messageService.add({
-      life: 1000,
-      severity: 'success',
-      summary: 'Service Message',
-      detail: 'Via MessageService',
+      life: 2000,
+      severity: toastType,
+      summary: header,
+      detail: message,
     });
   }
 }

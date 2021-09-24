@@ -1,78 +1,123 @@
 <div>
   <div class="_containerWidth">
     <h1 class="_m0 _fw700">ConvoBot360</h1>
-    <h3 class="_m0 _loginWithColor">Login with</h3>
-    <mat-tab-group mat-align-tabs="start">
-      <mat-tab label="Email">
-        <input class="_inputBox _mt" placeholder="Email" type="text" />
-        <input class="_inputBox _mt" placeholder="Mobile Number" type="tel" />
-        <div class="_textEnd _mt _cursorPointer" routerLink="/forgot-password">
-          Forgot Password?
-        </div>
-
-        <div class="_textCen _mt">
-          <button mat-button class="button _width100">Sign in</button>
-        </div>
-        <!-- <div class="_textStart _mt">
-          Don't have an account yet?<span
-            routerLink="/registration"
-            class="_cursorPointer _primaryTextColor"
-            >&nbsp;Sign up</span
-          >
-        </div> -->
-      </mat-tab>
-
-      <mat-tab label="Mobile">
-        <div *ngIf="!sendOTPStatus; else verifyTemplate">
-          <input class="_inputBox _mt" placeholder="Mobile Number" type="tel" />
+    <div *ngIf="!OTPNotVerifyStatus">
+      <h3 class="_m0 _loginWithColor">Login with</h3>
+      <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Email">
+          <input
+            class="_inputBox _mt"
+            placeholder="Email"
+            type="text"
+            [(ngModel)]="email"
+          />
+          <input
+            class="_inputBox _mt"
+            placeholder="Password"
+            type="password"
+            [(ngModel)]="password"
+          />
           <div
             class="_textEnd _mt _cursorPointer"
             routerLink="/forgot-password"
           >
             Forgot Password?
           </div>
-          <div class="_mt _textCen">
+
+          <div class="_textCen _mt">
             <button
               mat-button
               class="button _width100"
-              (click)="sendOTPStatus = true"
+              [disabled]="email == '' || password == ''"
+              (click)="signIn()"
             >
-              Send OTP
+              Sign in
             </button>
           </div>
-        </div>
+        </mat-tab>
 
-        <ng-template #verifyTemplate>
-          <h3 class="_mt _forgotTextColor">Verify OTP</h3>
+        <mat-tab label="Mobile">
+          <div *ngIf="!sendOTPStatus; else verifyTemplate">
+            <input
+              class="_inputBox _mt"
+              placeholder="Mobile Number"
+              [(ngModel)]="mobileNumber"
+              type="tel"
+              maxlength="10"
+            />
 
-          <!-- <label class="_mt _inputLabel">OTP</label> -->
-          <input class="_inputBox _mt" placeholder="OTP" />
-          <!-- <span class="_textMuted">Requires your primary email ID.</span> -->
-          <div class="_mt _textCen">
-            <button
-              mat-button
-              class="button _width100"
-              (click)="sendOTPStatus = false"
-            >
-              Verify OTP
-            </button>
+            <div class="_mt _textCen">
+              <button
+                mat-button
+                class="button _width100"
+                (click)="resendOTPFuction()"
+              >
+                Send OTP
+              </button>
+            </div>
           </div>
-        </ng-template>
-        <!-- <div class="_textStart _mt">
-          Don't have an account yet?<span
-            routerLink="/registration"
-            class="_cursorPointer _primaryTextColor"
-            >&nbsp;Sign up</span
-          >
-        </div> -->
-      </mat-tab>
-    </mat-tab-group>
-    <div class="_textStart _mt">
-      Don't have an account yet?<span
-        routerLink="/registration"
-        class="_cursorPointer _primaryTextColor"
-        >&nbsp;Sign up</span
-      >
+
+          <ng-template #verifyTemplate>
+            <h3 class="_mt _forgotTextColor">Verify OTP</h3>
+
+            <input
+              class="_inputBox _mt"
+              placeholder="OTP"
+              type="password"
+              maxlength="4"
+              [(ngModel)]="mobileOTP"
+            />
+
+            <div
+              class="_textCen _mt _cursorPointer"
+              (click)="resendOTPFuction()"
+            >
+              Resend OTP<span *ngIf="resendOTPCount != 0">
+                - {{ resendOTPCount }} Seconds
+              </span>
+            </div>
+            <div class="_mt _textCen">
+              <button
+                [disabled]="resendOTPCount == 0"
+                mat-button
+                class="button _width100"
+                (click)="otpVerifyFun()"
+              >
+                Verify OTP
+              </button>
+            </div>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+      <div class="_textStart _mt">
+        Don't have an account yet?<span
+          routerLink="/registration"
+          class="_cursorPointer _primaryTextColor"
+          >&nbsp;Sign up</span
+        >
+      </div>
+    </div>
+
+    <div *ngIf="OTPNotVerifyStatus">
+      <app-email-mobile-verification
+        [tenancyMetaDetails]="tenancyMetaDetails"
+      ></app-email-mobile-verification>
     </div>
   </div>
 </div>
+
+<!-- mobile_number: "2020202020"
+email: "gopidev@brigita.co"
+password:"qqqqqqqq" -->
+
+<!-- mobile_number: "2121212121"
+email: "gopinath111@gmail.com"
+password:"qqqqqqqq" -->
+
+<!-- mobile_number: "1001001001"
+email: "gopinath100@gmail.com"
+password:"qqqqqqqq" -->
+
+<!-- mobile_number: "1011011011"
+email: "gopinath101@gmail.com"
+password:"qqqqqqqq" -->
