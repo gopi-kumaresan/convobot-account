@@ -8,10 +8,11 @@ import {
   ValidationErrors,
   FormBuilder,
 } from '@angular/forms';
-import { endPoints } from 'src/assets/end-points/end-points';
+
 import { AppComponent } from 'src/app/app.component';
 
 import { MustMatch } from '../../auth/confirm-password-validator/confirmPassword';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -23,21 +24,17 @@ export class RegistrationComponent implements OnInit {
   signInForm!: FormGroup;
   submitted: boolean = false;
 
-  solutionListData: any = [
-    {
-      solution_id: 1,
-      solution_key: 'rIbXOMaLTg3rTLv3',
-      solution_name: 'Food Delivery',
-    },
-  ];
+  solutionListData: any = [];
+  tenancyMetaDetails: any;
 
   constructor(
-    private endPoints: endPoints,
     private toastMessage: AppComponent,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthService
   ) {
     // console.log('endPoints', this.endPoints.serverEndPoint.login);
     // this.toastMessage.addSingle();
+    this.solutionsListOutFun();
   }
 
   ngOnInit(): void {
@@ -54,7 +51,14 @@ export class RegistrationComponent implements OnInit {
           ],
         ],
         solution: ['', Validators.required],
-        password: ['', [Validators.required, Validators.minLength(6)]],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(20),
+          ],
+        ],
         confirmPassword: ['', Validators.required],
       },
       {
@@ -69,12 +73,36 @@ export class RegistrationComponent implements OnInit {
   }
 
   signInSumbit() {
-    console.log('form', this.signInForm);
+    console.log('form', this.signInForm.value);
     this.submitted = true;
     // this.toastMessage.addSingle();
 
     if (this.signInForm?.valid) {
-      this.signBasicDetailsStatus = true;
+      var solutionID: any = [];
+      this.signInForm.value.solution.map((id: any) => {
+        solutionID.push(id.solution_id);
+      });
+
+      let request = {
+        company_name: this.signInForm.value.companyName,
+        primary_mail_id: this.signInForm.value.email,
+        password: this.signInForm.value.password,
+        mobile_number: this.signInForm.value.mobileNumber,
+        solution: solutionID,
+        // solution: this.signInForm.value.solution[0].solution_id,
+      };
+      this.authService.tenancyRegistrationAPI(request).subscribe((res) => {
+        console.log('tenancyRegistrationAPI', res);
+        this.tenancyMetaDetails = res;
+        this.signBasicDetailsStatus = true;
+      });
     }
+  }
+
+  solutionsListOutFun() {
+    this.authService.getSolutionsList().subscribe((res) => {
+      console.log('getSolutionsList', res);
+      this.solutionListData = res.data;
+    });
   }
 }
